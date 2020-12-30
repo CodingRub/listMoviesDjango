@@ -1,0 +1,177 @@
+{% extends "list/base.html" %}
+{% block content %}
+{% if messages%}
+{% for message in messages%}
+<div class="alert alert-{{message.tags }}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+<main class="site-main" style="background: linear-gradient(to top,rgba(56, 56, 56, 0.137) 23%, rgba(82, 81, 81, 0.158) 190%);">
+
+    <!--Banner Area-->
+    <section class="site-banner" style="overflow: hidden; position: relative; color: white;">
+        <div class="container">
+          <div style="margin-top: 20px;">
+            <h3 style="float: left; font-weight: bold; font-size: 2rem;">{{title}}</h3>
+
+          </div>
+          <div style="clear:both"></div> 
+            <hr style="background-color: rgb(130, 170, 70); height: 3px;">
+            {% for movie in movies %}
+                <div class="c">
+                    <img src="{{movie.poster.url}}" alt="Avatar" class="image">
+                    <div class="overlay">
+                    <a data-modal-target="#cont{{movie.id}}" class="icon{{movie.id}}" title="User Profile" style="display: block;">
+                    <i class="fa fa-play" aria-hidden="true"></i>
+                    </a>
+                    </div>
+         
+                </div>
+                
+                <div class="cont{{movie.id}}" id="cont{{movie.id}}">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <img src="{{movie.poster.url}}" alt="Avatar" class="image">
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="">
+                                <div class="title{{movie.id}}" style="text-transform: uppercase; color:white; font-weight:bold; font-size: large; text-align:left; font-size:40px; margin:30px 0 0 0; padding:0 0 0 40px; letter-spacing:1px;">{{movie.title}}</div>
+                            </div>
+                            <ul class="liste">
+                              <hr style="background-color: greenyellow;">
+                              <li class="element">{{movie.date_released|date:"Y"}}</li> 
+                              <li class="element">{{movie.time}}</li>
+                              <li class="element">{{movie.genre}}</li>
+                              {% if user.is_authenticated %}
+                              <a href="/delete/{{movie.id}}/" class="btn btn-danger btn-sm" >Suprimer</a>
+                              {% endif %}
+                              <hr style="background-color: greenyellow;">
+                            </ul>
+                
+                            <p style="word-wrap: break-word; color:white; padding:20px 40px  40px; letter-spacing:1px; margin:10px 0 10px 0; line-height:20px;">{{movie.synopsis}}</p><br>
+                            <span>{{movie.authors}}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div id="ov"></div>
+
+        </div>
+    </section>
+    
+    <div class="container pb-2">
+      <hr style="background-color: rgb(130, 170, 70); height: 3px;">
+    {% if movies.has_other_pages %}
+    <ul class="pagination text-success justify-content-center">
+
+      {% if movies.has_previous %}
+        <li class=""><a href="?page={{ movies.previous_page_number }}" class="page-link">&laquo;</a></li>
+      {% else %}
+        <li class="disabled"><span class="page-link">&laquo;</span></li>
+      {% endif %}
+
+      {% for i in movies.paginator.page_range %}
+        {% if movies.number == i %}
+          <li class="active"><span class="page-link" style="background-color: greenyellow; color: black; font-weight: bold;"> {{  i  }} </span></li>
+        {% else %}
+          <li class=""><a href="?page={{ i }}" class="page-link text-white"> {{  i  }} </a></li>
+        {% endif %}
+      {% endfor %}
+
+      {% if movies.has_next %}
+      
+        <li><a href="?page={{ movies.next_page_number }}" class="page-link">&raquo;</a></li>
+      {% else %}
+        <li class="disabled"><span class="page-link">&raquo;</span></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+</div>
+</main>
+{% for movie in movies %}
+<script>
+  
+var openModalButtons = document.querySelectorAll(".icon{{movie.id}}");
+var overlay = document.getElementById('ov');
+
+
+var cont = document.querySelector(".cont{{movie.id}}");
+var icon = document.querySelector(".icon{{movie.id}}");
+var title = document.querySelector(".title{{movie.id}}");
+
+
+cont.style.background = "black";
+cont.style.color="white";
+cont.style.width= "75%";
+cont.style.transform = "translate(-50%, -50%) scale(0)";
+cont.style.transition= "200ms ease-in-out";
+cont.style.position = "fixed";
+cont.style.top= "50%";
+cont.style.left= "50%";
+cont.style.padding= "20px";
+cont.style.zIndex= "10";
+cont.style.overflow= "auto";
+cont.style.maxWidth= "80%";
+cont.style.borderRadius= "30px";
+cont.style.display = "none";
+cont.style.boxShadow = "0 0 5px 5px greenyellow"
+icon.style.color = "white";
+icon.style.fontSize = "100px";
+icon.style.position = "absolute";
+icon.style.top = "50%";
+icon.style.left = "50%";
+icon.style.transform = "translate(-50%, -50%)";
+icon.style.textAlign = "center";
+
+    openModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const modal = document.querySelector(".cont{{movie.id}}");
+      openModal(modal);
+      var act = document.querySelectorAll(".cont{{movie.id}}.active")[0];
+      console.log(act)
+      act.style.display = "block";
+      act.style.transform = "translate(-50%, -50%) scale(1)";
+    })
+  })
+
+  overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll(".cont{{movie.id}}.active");
+    modals.forEach(modal => {
+      closeModal(modal);
+    })
+  })
+
+
+
+  document.addEventListener("keydown", function(event) {
+    if (event.keyCode == 27) {
+      const modals = document.querySelectorAll(".cont{{movie.id}}.active");
+      modals.forEach(modal => {
+      closeModal(modal);
+
+    })
+    }
+  });
+
+  function openModal(modal) {
+    console.log(modal);
+    if (modal == null) return
+      modal.classList.add('active');
+      overlay.classList.add('active');
+
+
+  }
+
+  function closeModal(modal) {
+    if (modal == null) return
+      modal.classList.remove('active');
+      overlay.classList.remove('active');
+      modal.style.display = "";
+      modal.style.transform = "translate(-50%, -50%) scale(0)";
+  }
+
+
+
+</script>
+{%endfor%}
+{% endblock content %}

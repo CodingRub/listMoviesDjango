@@ -1,0 +1,98 @@
+{% extends "list/base.html" %}
+{% block content %}
+<main class="site-main" style="background: linear-gradient(to top,rgba(56, 56, 56, 0.171) 23%, rgba(82, 81, 81, 0.199) 190%); overflow: hidden; position: relative; color: white;">
+    <div class="container">
+        <h1 >Dashboard:</h1>
+        <hr style="background-color: rgb(130, 170, 70); height: 3px;">
+        <div class="row bg-dark mt-5" style="box-shadow: 0 0 5px 5px greenyellow;">
+            <div class="form-box4">
+            <div style="overflow: auto; height: 400px; ">
+                <table class="table table-sm" style="background-color: rgb(44, 44, 48); color: white; margin-bottom: 0rem;">
+                    <h1 style="text-align: center; padding: 20px;">LISTE DES FILMS:</h1> 
+                    <thead style="font-size: 20px;">
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Synopsis</th>
+                        <th scope="col">Acteurs</th>
+                        <th scope="col">Année</th>
+                        <th scope="col">Durée</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for movie in movies %}
+                      <tr>
+                        <th scope="row">{{movie.id}}</th>
+                        <td>{{movie.title|truncatechars:15}}</td>
+                        <td>{{movie.synopsis|truncatechars:30}}</td>
+                        <td>{{movie.author}}</td>
+                        <td>{{movie.date_released|date:"Y"}}</td>
+                        <td>{{movie.time}}</td>
+                        <td>{{movie.genre}}</td>
+                        <td><button class="btn btn-primary btn-sm" style="margin-bottom: 10px;">Modifier</button><a href="/delete/{{movie.id}}/" class="btn btn-danger btn-sm" >Suprimer</a></td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+        </div>
+        </div>
+            <br>
+            <hr style="background-color: rgb(130, 170, 70); height: 3px;">
+            <div class="row bg-dark mt-5" style="box-shadow: 0 0 5px 5px greenyellow; color: white;">
+                <div class="col-lg-6 ">
+                    <div class="form-box3">
+                        <h2 style="text-align: center; padding: 20px; ">AJOUTER UN FILM:</h2>
+                
+                        <form enctype="multipart/form-data" autocomplete="off" method="POST" class="conta" style="text-align: center;">
+                            {% csrf_token %}
+                            {{form.title}}
+                            {{form.synopsis}}
+                            {{form.date_released}}
+                            {{form.author}}
+                            {{form.time}}
+                            {{form.genre}}
+                            {{form.poster}}
+                            <button type="submit">Sign up</button>
+                            {% if messages%}
+                            {% for message in messages%}
+                                <div class="alert alert-{{message.tags }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6" >
+                    <div class="form-box3">
+                        <h2 style="text-align: center; padding: 20px;">UTILISATEURS:</h2>
+                    <table class="table table-sm" style="background-color: rgb(44, 44, 48); color: white;">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Pseudo</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                        <tr>
+                            <th scope="row">{{user.id}}</th>
+                            <td>{{user.username}}</td>
+                            <td>{{user.first_name}}</td>
+                            <td>{{user.last_name}}</td>
+                            <td>{{user.email|truncatechars:9}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content%}

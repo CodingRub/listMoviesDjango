@@ -1,0 +1,25 @@
+{% extends "list/base.html" %}
+{% block content %}
+<main class="site-main" style="background-color: black; color: white;">
+    <div class="form-box2">
+        <h1 style="text-align: center; padding: 20px;">SIGN UP</h1>
+
+        <form autocomplete="off" method="POST" class="conta" style="text-align: center;">
+            {% csrf_token %}
+            {{form.username}}
+            {{form.first_name}}
+            {{form.last_name}}
+            {{form.email}}
+            {{form.password1}}
+            {{form.password2}}
+            <button type="submit">Sign up</button>
+        </form>
+        {% if messages%}
+            {% for message in messages%}
+                <div class="alert alert-{{message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</main>
+
+{% endblock content%}

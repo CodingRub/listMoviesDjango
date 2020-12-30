@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'list/main.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    {% if title%}
+    <title>Django List - {{title}}</title>
+    {% else %}
+    <title>Django List</title>
+    {% endif %}
+</head>
+<body style="background: url(https://img.freepik.com/vecteurs-libre/fond-geometrique-3d-noir-low-low-noir_79145-393.jpg?size=626&ext=jpg);" >
+    <header>
+        <!--Navbar Area-->
+        <nav class="navbar navbar-expand-lg py-3 navbar-dark text-success" style="background: linear-gradient(to bottom,rgba(56, 56, 56, 0.164) 23%, rgba(82, 81, 81, 0.137) 190%);" >
+            <div class="container text-success">
+              <a href="{% url 'list-home' %}" class="navbar-brand text-success">
+                <!-- Logo Image -->
+                <img src="{% static 'list/images/logoamodif.jpg' %}" width="100" alt="" class="d-inline-block align-middle text-success mr-2">
+              </a>
+          
+              <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+          
+              <div class="collapse navbar-collapse text-success" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item active text-success"><a href="{% url 'list-home' %}" class="nav-link mr-3 text-light" style="color: greenyellow;">Home <span class="sr-only">(current)</span></a></li>
+                  <li class="nav-item active text-success"><a href="{% url 'AtoZ-page' %}" class="nav-link mr-3 text-light" style="color: greenyellow;">A to Z</a></li>
+                  <div class="dropdown">
+                    <li class="nav-item active text-success"><a class="nav-link mr-3 text-light" style="color: greenyellow;">Years</a></li>
+                    <div class="dropdown-content">
+                      {% for movie in years %}
+                        <a name="q" href="?q={{movie}}">{{ movie }}</a>
+                      {% empty %}
+                        <a>Aucune date</a>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <li class="nav-item active text-success"><a class="nav-link mr-3 text-light" style="color: greenyellow;">Genre</a></li>
+                    <div class="dropdown-content">
+                      {% if genre %}
+                      {% for movie in genre %}
+                        <a name="q" href="?q={{movie}}">{{ movie }}</a>
+                      {% endfor %}
+                      {% else %}
+                      {% for movie2 in genre2 %}
+                      <a name="q" href="?q={{movie2}}">{{ movie2 }}</a>
+                      {% endfor %}
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% if user.is_authenticated %}
+                  <li class="nav-item"><a href="{% url 'dashboard-page' %}" class="nav-link text-light js-scrollTo">Admin</a></li>
+                  <li class="nav-item"><a href="{% url 'logout-page' %}" class="nav-link text-light js-scrollTo">Deconnexion</a></li>
+                  {% else %}
+                  <li class="nav-item"><a href="{% url 'login-page' %}" class="nav-link text-light js-scrollTo" >Connexion</a></li>
+                  {% endif %}
+                  <form action="" style="display: block ruby">
+                  <input type="search" placeholder="Rechercher..." name="q" value= "{{request.GET.q }}" id="search" style="width: 250px; display: none; padding: 5px; color: #fff; border: 1px solid greenyellow; border-radius: 20px; background: none;">
+                  <li class="nav-item"><a class="nav-link text-light" ><i class="fa fa-search" id="recherche" style="color: greenyellow; "></i></a></li>
+                  </form>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+{% block content %}
+{% endblock %}
+<script>
+var loupe = document.getElementById("recherche");
+var recherche = document.getElementById('search');
+$("#recherche").click(function(){
+  $("#search").animate({width: 'toggle'});
+});
+</script>
+
+<!--<footer>
+    <p style="text-align: center;">Copyright 2020-2020 by Ruben. All Rights Reserved. </p>
+    <img src="https://thumbs.dreamstime.com/b/film-et-bande-objet-sur-le-fond-noir-121939132.jpg" width="50" alt="" class="d-inline-block align-middle text-success mr-2">
+</footer>-->
+</body>
+</html>

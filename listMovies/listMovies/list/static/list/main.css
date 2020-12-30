@@ -1,0 +1,321 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Source Code Pro', monospace;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: url("https://img.freepik.com/vecteurs-libre/fond-geometrique-3d-noir-low-low-noir_79145-393.jpg?size=626&ext=jpg");
+}
+
+.site-main .site-banner .site-title h3 {
+  padding-top: 5%;
+  font-weight: bold;
+  font-size: large;
+}
+
+.c {
+    position: relative;
+    max-width: 200px;
+    float: left;
+    width: 25%;
+    margin: 35px;
+    text-align: center;
+}
+  
+
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  
+}
+
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(44, 44, 44, 0.5);
+}
+  
+  .c:hover .overlay {
+    opacity: 1;
+}
+  
+  
+  .icon {
+    color: white;
+    font-size: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .fa-play:hover {
+    color: greenyellow;
+    cursor: pointer;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+  }
+
+
+
+  .liste {
+    list-style-type:none;
+    padding:0 0 0 40px;
+    margin:10px 0 0 0;
+  }
+
+  .element {
+    display:inline;
+    color:#e3e3e3;
+    padding:0 40px 0 0;
+    
+  }
+
+  .modal-header .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .modal-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+
+
+  #ov {
+    position: fixed;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    background-color: rgba(59, 59, 59, 0.5);
+    pointer-events: none;
+
+  }
+
+  #ov.active {
+    pointer-events: all;
+    opacity: 1;
+  }
+
+  .form-box {
+    width: 500px;
+    height: 400px;
+    position: relative;
+    margin: 4% auto;
+    padding: 5px;
+  }
+  .form-box2 {
+    width: 500px;
+    height: 650px;
+    box-shadow: 0 0 5px 5px greenyellow;
+    position: relative;
+    margin: 6% auto;
+    background-color: rgb(44, 44, 48);
+    padding: 10px;
+  }
+  .form-box3 {
+    width: 500px;
+    height: 800px;
+    box-shadow: 0 0 5px 5px greenyellow;
+    position: relative;
+    margin: 6% auto;
+    background-color: rgb(44, 44, 48);
+    padding: 10px;
+  }
+
+  .form-box4 {
+    width: auto;
+    height: 450px;
+    position: relative;
+    padding: 10px;
+    
+  }
+
+
+  .conta input[type=text], .conta input[type=password], .conta input[type=email], .conta input[type=date], .conta textarea {
+    width: 80%;
+    padding: 10px 0 10px 15px;
+    margin: 30px auto;
+    display: block;
+    border: none;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    color: white;
+    text-align: center;
+    
+  }
+
+  .conta2 input[type=text], .conta2 input[type=password], .conta2 input[type=email], textarea{
+    width: 60%;
+    margin: 20px auto;
+    display: block;
+    border: 3px solid rgb(129, 235, 88);
+    box-sizing: border-box;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+    text-align: center;
+    
+  }
+
+
+
+
+  .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+  }
+  
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+  .conta input[type=text]:focus, .conta input[type=password]:focus, .conta input[type=email]:focus {
+    width: 95%;
+    transition: .35s ease;
+    -webkit-transition: .35s ease;
+    
+  }
+
+  .conta button {
+    background-color: greenyellow;
+    border-radius: 25px;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    border: 2px solid greenyellow;
+    margin: 10px;
+    font-weight: bold;
+    width: 80%;
+  }
+
+  .conta button:hover {
+    background: none;
+    color: white;
+    font-weight: bold;
+  }
+
+  .conta2 input[type=text]:focus, .conta2 input[type=password]:focus, .conta2 input[type=email]:focus {
+    width: 75%;
+    transition: .35s ease;
+    -webkit-transition: .35s ease;
+    
+  }
+
+  .conta2 button {
+    background: none;
+    border-radius: 25px;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    border: 2px solid greenyellow;
+    margin: 10px;
+    font-weight: bold;
+  }
+
+  .conta2 button:hover {
+    background-color: greenyellow;
+    color: black;
+    font-weight: bold;
+  }
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  align-content: center;
+  margin-top: 20px;
+  border-top: 2px solid greenyellow;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: white;
+}
+
+.page-link{
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  color: greenyellow;
+  height: 45px;
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: large;
+  padding: -1rem;
+}
+
+.page-link .colo {
+  color: white;
+}
+
+.page-link:hover {
+  background-color: greenyellow;
+  color: black;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: linear-gradient(to top,rgba(56, 56, 56, 0.801) 23%, rgba(82, 81, 81, 0.774) 190%);;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown-content a:hover {background: linear-gradient(to top,rgba(74, 214, 9, 0.342) 33%, rgba(104, 101, 101, 0.788) 190%);}
+
